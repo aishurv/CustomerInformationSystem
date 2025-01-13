@@ -1,0 +1,76 @@
+﻿@page "/modify"
+@rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
+<button class="btn btn-outline-primary ms-1" @onclick="UpdateCsvFile">Save To File</button>
+<button class="btn btn-danger shadow-lg" @onclick="ReloadData">Reload Data </button>
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <select class="btn btn-outline-primary shadow-lg" @onchange="OnSearchAttributeSelected">
+                <option value="">-- Select an Attribute --</option>
+                @foreach (var str in SearchAttribute)
+                {
+                    <option value="@str"> @str </option>
+                }
+            </select>
+        </div>
+
+        <div class="col">
+            <InputText id="ID" class="form-control col-md-8" @bind-Value="value" placeholder="Enter value"></InputText>           
+        </div>
+        <div class="col">
+            <button class="btn btn-outline-primary shadow-lg" @onclick="Searchvalue"> Search </button>
+        </div>
+
+        <div class="col d-flex justify-content-center align-items-center ">
+        </div>
+    </div>
+</div>
+@if (customers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (customers.Count==0)
+{
+    <p><em>No result Found !</em></p>
+    <button class="btn btn-outline-primary" @onclick="ReloadData">Reload Data </button>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Customer ID</th>
+                <th>Customer Name </th>
+                <th>Customer City </th>
+                <th>Customer Country </th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in customers)
+            {
+                <tr>
+                    <td>@customer.ID </td>
+                    <td>@customer.Name </td>
+                    <td>@customer.City </td>
+                    <td>@customer.Country </td>
+                    <td>
+                        <button class="btn btn-primary bi bi-pencil-fill" @onclick="() => EditCustomer(customer.ID)">    Edit</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger bi bi-trash-fill" @onclick="() => DeleteCustomer(customer.ID)">    Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<script>
+    function showAlert(message) {
+    alert(message);
+    }
+</script>

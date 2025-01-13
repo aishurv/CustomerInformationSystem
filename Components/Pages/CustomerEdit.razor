@@ -1,0 +1,92 @@
+﻿@page "/modify/{id}"
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+@if (!Saved)
+{
+
+    <h3>Edit Customer Details </h3>
+    <EditForm Model="customer" OnValidSubmit="OnUpdate" FormName="EditCustomerForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="row mb-3">
+            <label for="ID" class="col-form-label col-md-3">Customer ID :</label>
+            <div class="col-md-8">
+                <InputText id="ID" class="form-control col-md-8" @bind-Value="customer.ID" placeholder="Enter Customer ID"></InputText>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="Name" class="col-form-label col-md-3">Customer Name:</label>
+            <div class="col-md-8">
+                <InputText id="Name" class="form-control col-md-8" @bind-Value="customer.Name" placeholder="Enter Customer Name"></InputText>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="City" class="col-form-label col-md-3">Customer City:</label>
+            <div class="col-md-8">
+                <InputText id="City" class="form-control col-md-8" @bind-Value="customer.City" placeholder="Enter Customer City"></InputText>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="Country" class="col-form-label col-md-3">Customer Country:</label>
+            <div class="col-md-8">
+                <InputText id="Country" class="form-control col-md-8" @bind-Value="customer.Country" placeholder="Enter Customer Country"></InputText>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="Company" class="col-form-label col-md-3">Customer Company:</label>
+            <div class="col-md-8">
+                <InputText id="Company" class="form-control col-md-8" @bind-Value="customer.Company" placeholder="Enter Customer Company"></InputText>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="Phone" class="col-form-label col-md-3">Customer Phone:</label>
+            <div class="col-md-8">
+                <InputText id="Phone" class="form-control col-md-8" @bind-Value="customer.Phone" placeholder="Enter Customer Phone"></InputText>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="Email" class="col-form-label col-md-3">Customer Email:</label>
+            <div class="col-md-8">
+                <InputText id="Email" class="form-control col-md-8" @bind-Value="customer.Email" placeholder="Enter Customer Email"></InputText>
+            </div>
+        </div>
+
+            <button type="submit" class="btn btn-outline-primary ms-1">Update</button>
+      
+            <button class="btn btn-outline-primary ms-1" @onclick="SaveToFile">Save to File </button>
+      
+            <button class="btn btn-outline-primary ms-1" @onclick="BackToModify">Back </button>
+      
+        
+        
+    </EditForm>
+}
+else
+{
+
+    <h3>Updated Customer Details </h3>
+    <h4 class="text-success">Customer ID: @customer.ID</h4>
+    <h4 class="text-success">Customer Name: @customer.Name</h4>
+    <h4 class="text-success">Customer City: @customer.City</h4>
+    <h4 class="text-success">Customer Country: @customer.Country</h4>
+    <h4 class="text-success">Customer Company: @customer.Company</h4>
+    <h4 class="text-success">Customer Phone: @customer.Phone</h4>
+    <h4 class="text-success">Customer Email: @customer.Email</h4>
+
+        <button class="btn btn-outline-primary ms-1" @onclick="SaveToFile">Save to File </button>
+   
+        <button class="btn btn-outline-primary ms-1" @onclick="BackToModify">Back </button>
+  
+}
+<script>
+    function showAlert(message) {
+    alert(message);
+    }
+</script>
