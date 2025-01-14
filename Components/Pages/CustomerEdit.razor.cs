@@ -11,19 +11,19 @@ namespace CustomerInformationSystem.Components.Pages
         protected string Message = string.Empty;
         protected string StatusClass = string.Empty;
         [SupplyParameterFromForm]
-        public Customer? customer { get; set; }
+        public Customer customer { get; set; } = new();
         [Inject]
         public NavigationManager? NavigationManager { get; set; }
 
         protected override void OnInitialized()
         {
             Saved = false;
-            customer = CustomerCsvHandler.GetCustomerById(Id);
+            customer = CustomerCsvService.GetCustomerById(Id);
         }
 
         protected void SaveToFile()
         {
-            if (CustomerCsvHandler.UpdateCsv())
+            if (CustomerCsvService.UpdateCsv())
             {
                 JSRuntime.InvokeVoidAsync("showAlert", "File updated Successfully !");
             }

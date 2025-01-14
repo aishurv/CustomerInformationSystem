@@ -5,13 +5,13 @@ using Serilog;
 namespace CustomerInformationSystem
 
 {
-    public static class CustomerCsvHandler
+    public static class CustomerCsvService
     {
         public const string InputFilePath = "CustomerData.csv";
         public static List<Customer> customersData = new();
-        static CustomerCsvHandler()
+        static CustomerCsvService()
         {
-            customersData = CustomerCsvHandler.ReadData();
+            customersData = CustomerCsvService.ReadData();
         }
         public static List<Customer> ReadData(string filePath = InputFilePath)
         {
@@ -46,7 +46,7 @@ namespace CustomerInformationSystem
         /// </summary>
         public static bool UpdateCsv()
         {
-            return UpdateCsv(CustomerCsvHandler.customersData);
+            return UpdateCsv(CustomerCsvService.customersData);
         }
         /// <summary>
         /// If customersDataList not empty Update Csv And return true else return false 

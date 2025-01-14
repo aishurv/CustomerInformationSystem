@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-
+using CustomerInformationSystem;
 namespace CustomerInformationSystem.Components.Pages
 {
     public partial class Sort
     {
-        List<Customer> customers = CustomerCsvHandler.GetCustomerData();
+        List<Customer> customers = CustomerCsvService.GetCustomerData();
         string SelectedSortAttribute = string.Empty;
         List<String> ValidSort = [
                 "ID",
@@ -21,25 +21,17 @@ namespace CustomerInformationSystem.Components.Pages
         private void OnSortAttributeSelected(ChangeEventArgs e)
         {
             SelectedSortAttribute = e.Value?.ToString() ?? ValidSort[0]!;
-            customers = SortCustomers(SelectedSortAttribute, IsDesc);
+            customers.SortCustomers(SelectedSortAttribute, IsDesc);
         }
         private void ReloadData()
         {
-            customers = CustomerCsvHandler.GetCustomerData();
+            customers = CustomerCsvService.GetCustomerData();
             JSRuntime.InvokeVoidAsync("showAlert", "Data Loaded Successfully !");
         }
-        List<Customer> SortCustomers(string attributeName, bool IsDesc)
-        {
-            var property = typeof(Customer).GetProperty(attributeName);
-            if (property == null)
-                return customers;
-            if (IsDesc)
-                return customers.OrderByDescending(c => property.GetValue(c, null)).ToList();
-            return customers.OrderBy(c => property.GetValue(c, null)).ToList();
-        }
+        
         private void UpdateCsvFile()
         {
-            if(CustomerCsvHandler.UpdateCsv(customers))
+            if(CustomerCsvService.UpdateCsv(customers))
             {
                 JSRuntime.InvokeVoidAsync("showAlert", "File updated Successfully !");
             }

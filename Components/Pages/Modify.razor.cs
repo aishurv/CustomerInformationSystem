@@ -6,7 +6,7 @@ namespace CustomerInformationSystem.Components.Pages
 {
     public partial class Modify
     {
-        List<Customer> customers = CustomerCsvHandler.GetCustomerData();
+        List<Customer> customers = CustomerCsvService.GetCustomerData();
         [Inject]
         public NavigationManager? NavigationManager { get; set; }
         private string value=string.Empty;
@@ -30,7 +30,7 @@ namespace CustomerInformationSystem.Components.Pages
         }
         private void UpdateCsvFile()
         {
-            if (CustomerCsvHandler.UpdateCsv())
+            if (CustomerCsvService.UpdateCsv())
             {
                 JSRuntime.InvokeVoidAsync("showAlert", "File updated Successfully !");
             }
@@ -57,12 +57,12 @@ namespace CustomerInformationSystem.Components.Pages
         }
         private void ReloadData()
         {
-            customers = CustomerCsvHandler.GetCustomerData();
+            customers = CustomerCsvService.GetCustomerData();
 
         }
-        private void Searchvalue()
+        private void SearchValue()
         {
-            customers = HelperMethods.SearchCustomer(customers, SelectedSearchAttribute, value);
+            customers.SearchCustomer(SelectedSearchAttribute, value);
         }
 
 

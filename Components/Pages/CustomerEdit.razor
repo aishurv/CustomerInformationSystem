@@ -1,4 +1,6 @@
 ﻿@page "/modify/{id}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 @inject IJSRuntime JSRuntime
 @rendermode InteractiveServer
 
@@ -72,13 +74,13 @@ else
 {
 
     <h3>Updated Customer Details </h3>
-    <h4 class="text-success">Customer ID: @customer.ID</h4>
-    <h4 class="text-success">Customer Name: @customer.Name</h4>
-    <h4 class="text-success">Customer City: @customer.City</h4>
-    <h4 class="text-success">Customer Country: @customer.Country</h4>
-    <h4 class="text-success">Customer Company: @customer.Company</h4>
-    <h4 class="text-success">Customer Phone: @customer.Phone</h4>
-    <h4 class="text-success">Customer Email: @customer.Email</h4>
+    <h4 class="text-success">Customer ID: @customer?.ID</h4>
+    <h4 class="text-success">Customer Name: @customer?.Name</h4>
+    <h4 class="text-success">Customer City: @customer?.City</h4>
+    <h4 class="text-success">Customer Country: @customer?.Country</h4>
+    <h4 class="text-success">Customer Company: @customer?.Company</h4>
+    <h4 class="text-success">Customer Phone: @customer?.Phone</h4>
+    <h4 class="text-success">Customer Email: @customer?.Email</h4>
 
         <button class="btn btn-outline-primary ms-1" @onclick="SaveToFile">Save to File </button>
    

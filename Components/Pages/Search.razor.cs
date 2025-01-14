@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Serilog;
-
+using CustomerInformationSystem;
 namespace CustomerInformationSystem.Components.Pages
 {
     public partial class Search
     {
-        List<Customer> customers = CustomerCsvHandler.GetCustomerData();
+        List<Customer> customers = CustomerCsvService.GetCustomerData();
         List<String> SearchAttribute = [
                 "ID",
                 "Name",
@@ -25,30 +25,20 @@ namespace CustomerInformationSystem.Components.Pages
             SelectedSearchAttribute = e.Value?.ToString() ?? SearchAttribute[0]!;
 
             if (SelectedSearchAttribute != null)
-                DistinctValues = getDistinctValues( SelectedSearchAttribute);
+                DistinctValues = customers.getDistinctValues(SelectedSearchAttribute);
         }
         private void OnValueSelected(ChangeEventArgs e)
         {
             SelectedAttributevalue = e.Value?.ToString() ?? DistinctValues[0]!;
-            customers = HelperMethods.SearchCustomer(customers,SelectedSearchAttribute, SelectedAttributevalue);
+            customers.SearchCustomer(SelectedSearchAttribute, SelectedAttributevalue);
 
         }
         private void ReloadData()
         {
-            customers = CustomerCsvHandler.GetCustomerData();
+            customers = CustomerCsvService.GetCustomerData();
 
         }
         
-        List<string> getDistinctValues (string attributeName)
-        {
-            var property = typeof(Customer).GetProperty(attributeName);
-            if (property == null)
-                return new List<string>();
-
-            return customers
-                .Select(item => property.GetValue(item, null)?.ToString()) 
-                .Distinct() 
-                .ToList()!; 
-        }
+        
     }
 }

@@ -1,4 +1,6 @@
 ﻿@page "/modify"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 @rendermode InteractiveServer
 @inject IJSRuntime JSRuntime
 <button class="btn btn-outline-primary ms-1" @onclick="UpdateCsvFile">Save To File</button>
@@ -21,7 +23,7 @@
             <InputText id="ID" class="form-control col-md-8" @bind-Value="value" placeholder="Enter value"></InputText>           
         </div>
         <div class="col">
-            <button class="btn btn-outline-primary shadow-lg" @onclick="Searchvalue"> Search </button>
+            <button class="btn btn-outline-primary shadow-lg" @onclick="SearchValue"> Search </button>
         </div>
 
         <div class="col d-flex justify-content-center align-items-center ">

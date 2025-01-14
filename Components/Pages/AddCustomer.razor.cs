@@ -23,7 +23,7 @@ namespace CustomerInformationSystem.Components.Pages
             }
             else
             {
-                CustomerCsvHandler.AddCustomer(customer);
+                CustomerCsvService.AddCustomer(customer);
 
                 IsSaved = true;
                 Message = "Customer added successfully";
@@ -38,7 +38,7 @@ namespace CustomerInformationSystem.Components.Pages
         }
         private void UpdateCsvFile()
         {
-            if (CustomerCsvHandler.UpdateCsv())
+            if (CustomerCsvService.UpdateCsv())
             {
                 JSRuntime.InvokeVoidAsync("showAlert", "File updated Successfully !");
             }

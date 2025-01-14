@@ -1,4 +1,6 @@
 ﻿@page "/addCustomer"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 @inject IJSRuntime JSRuntime
 @rendermode InteractiveServer
 <h3>Add Customer</h3>
